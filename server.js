@@ -5,18 +5,20 @@ const fs = require('fs');
 const path = require('path');
 const methodOverride = require('method-override');
 
-const app = express(); // This line remains
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Set up multer for file uploading
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '/mnt/data/attachments'); // Use the mounted volume path here
+        cb(null, 'attachments/'); // Change this destination to 'attachments/'
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
+
+const upload = multer({ storage: storage });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -36,7 +38,7 @@ async function writeJSONFile(filePath, data) {
     const dataString = JSON.stringify(data, null, 2);
     await fs.promises.writeFile(filePath, dataString, 'utf8');
 }
-// POST route for form submission
+
 // POST route for form submission
 app.post('/submit-form', upload.fields([
     { name: 'breakdownReport', maxCount: 1 },
@@ -62,7 +64,6 @@ app.post('/submit-form', upload.fields([
         creditReceivedAttachments: req.files['creditReceivedAttachments'] ? req.files['creditReceivedAttachments'][0].path : '',
         
     };
-    
 
     try {
         // Read existing data from data.json
@@ -79,8 +80,6 @@ app.post('/submit-form', upload.fields([
 
         // Redirect or send a response
         res.redirect('/display-data'); // Redirecting to the display-data page as an example
-        // or
-        // res.send('Form submitted successfully');
     } catch (error) {
         console.error('Error saving data:', error);
         res.status(500).send('Error processing form');
