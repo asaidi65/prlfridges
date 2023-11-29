@@ -5,8 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const methodOverride = require('method-override');
 
-const express = require('express');
-const app = express();
+const app = express(); // This line remains
 const PORT = process.env.PORT || 3000;
 
 // Set up multer for file uploading
@@ -173,3 +172,4 @@ app.post('/update/:id', upload.none(), async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
