@@ -5,8 +5,9 @@ const fs = require('fs');
 const path = require('path');
 const methodOverride = require('method-override');
 
+const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Set up multer for file uploading
 const storage = multer.diskStorage({
@@ -170,6 +171,5 @@ app.post('/update/:id', upload.none(), async (req, res) => {
     }
 }); // Add this closing bracket
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
