@@ -1,2 +1,35 @@
-[]
- 
+[
+  {
+    "prlId": "260965",
+    "ulId": "6789",
+    "shopDetails": "cork local stadium and gym",
+    "breakdownOccurred": "2023-11-26",
+    "stockLossReceived": "2023-11-26",
+    "creditRequestSent": "2023-11-26",
+    "georgePassedCredit": "2023-11-26",
+    "creditreceived": "2023-11-26",
+    "netValueBreakdown": "40",
+    "companyBreakdown": "compugen",
+    "breakdownReport": "C:\\attachments\\breakdownReport-1701041506974.png",
+    "creditRequestDocument": "C:\\attachments\\creditRequestDocument-1701041506981.png",
+    "creditReceivedAttachments": "C:\\attachments\\creditReceivedAttachments-1701041506977.png",
+    "id": 15,
+    "creditReceived": "2023-11-25"
+  },
+  {
+    "prlId": "12345",
+    "ulId": "6789",
+    "shopDetails": "waterford university of tech",
+    "breakdownOccurred": "2023-11-26",
+    "stockLossReceived": "2023-11-18",
+    "creditRequestSent": "2023-11-18",
+    "georgePassedCredit": "2023-11-25",
+    "creditreceived": "2023-11-18",
+    "netValueBreakdown": "22.5",
+    "companyBreakdown": "compugen",
+    "breakdownReport": "C:\\attachments\\breakdownReport-1701041688914.png",
+    "creditRequestDocument": "C:\\attachments\\creditRequestDocument-1701041688919.png",
+    "creditReceivedAttachments": "C:\\attachments\\creditReceivedAttachments-1701041688915.png",
+    "id": 16
+  }
+]

@@ -1,13 +1,6 @@
 module.exports = {
   build: {
-    command: "npm run build",
-    publish: "dist",
+    publish: ".",
   },
-  redirects: [
-    {
-      from: "/old-page",
-      to: "/new-page",
-      status: 301,
-    },
-  ],
+ 
 };
