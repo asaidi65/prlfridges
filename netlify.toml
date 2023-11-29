@@ -1,4 +1,13 @@
 [build]
-publish = "prl/prlfridge" # Specify the directory where your build output is located
-command = "npm run build" # The build command to run
+publish = "public"  # Specify the directory where your build output is located
+command = "npm run build"  # The build command to run
 
+[[redirects]]  # Optional: Configure redirects for client-side routing
+from = "/*"
+to = "/index.html"
+status = 200
+
+[[headers]]  # Optional: Configure headers (e.g., for caching)
+for = "/*"
+[headers.values]
+  Cache-Control = "public, max-age=0, must-revalidate"
