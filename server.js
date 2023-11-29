@@ -11,13 +11,12 @@ const PORT = process.env.PORT || 3000;
 // Set up multer for file uploading
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'C:/attachments/');
+        cb(null, '/mnt/data/attachments'); // Use the mounted volume path here
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
 });
-const upload = multer({ storage: storage });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
