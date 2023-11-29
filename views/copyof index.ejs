@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Breakdown and Credit Management Form</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div id="banner">
+        <h2>Inventory Breakdown and Credit Management</h2> 
+    </div>    
+
+    <div class="form-container">
+        
+        <form action="/submit-form" method="post" enctype="multipart/form-data">
+            <!-- Account Information -->
+            <div class="column">
+                <h2>Account</h2>
+                <div class="form-group">
+                    <label for="prlId">PRL ID:</label>
+                    <input type="text" id="prlId" name="prlId" required>
+                </div>
+                <div class="form-group">
+                    <label for="ulId">UL ID:</label>
+                    <input type="text" id="ulId" name="ulId" required>
+                </div>
+                
+            </div>
+
+            <!-- Shop and Breakdown Details -->
+            <div class="column">
+                <h2>Shop Name and Details</h2>
+                <div class="form-group">
+                    <label for="shopDetails">Shop Details:</label>
+                    <textarea id="shopDetails" name="shopDetails" rows="4" cols="55" required></textarea>
+                </div>
+                <h2>Breakdown Details</h2>
+                <div class="form-group">
+                    <label for="companyBreakdown">Company Dealing with the Breakdown:</label>
+                    <input type="text" id="companyBreakdown" name="companyBreakdown" required>
+                </div>
+                <div class="form-group">
+                    <label for="netValueBreakdown">Net Value of the Breakdown:</label>
+                    <input type="text" id="netValueBreakdown" name="netValueBreakdown" required>
+                </div>
+            </div>
+
+            <!-- Credit Request and Received -->
+            <div class="column">
+                <h2>Credit Request</h2>
+                <div class="form-group">
+                    <label for="breakdownOccurred">When Breakdown Occurred:</label>
+                    <input type="date" id="breakdownOccurred" name="breakdownOccurred" required>
+                </div>
+                <div class="form-group">
+                    <label for="stockLossReceived">When I Received the Stock Loss:</label>
+                    <input type="date" id="stockLossReceived" name="stockLossReceived" required>
+                </div>
+                <div class="form-group">
+                    <label for="creditRequestSent">When Credit Request Sent to George:</label>
+                    <input type="date" id="creditRequestSent" name="creditRequestSent" required>
+                </div>
+                <div class="form-group">
+                    <label for="georgePassedCredit">When George Passed the Credit to Arquery:</label>
+                    <input type="date" id="georgePassedCredit" name="georgePassedCredit" required>
+                </div>
+                <h2>Credit Received</h2>
+                <div class="form-group">
+                    <label for="creditReceived">Credit Received:</label>
+                    <input type="date" id="creditReceived" name="creditReceived" required>
+                </div>
+            </div>
+
+            <!-- Attachments -->
+            <div class="column">
+                <h2>Attachments</h2>
+                <div class="form-group">
+                    <label for="breakdownReport">Stock Loss and Possible Breakdown Report:</label>
+                    <input type="file" id="breakdownReport" name="breakdownReport" multiple>
+                </div>
+                <div class="form-group">
+                    <label for="creditRequestDocument">Credit Request Document (1 or 2 Pages):</label>
+                    <input type="file" id="creditRequestDocument" name="creditRequestDocument" multiple>
+                </div>
+                <div class="form-group">
+                    <label for="creditReceivedAttachments">Credit Received Attachments:</label>
+                    <input type="file" id="creditReceivedAttachments" name="creditReceivedAttachments" multiple>
+                </div>
+            </div>
+
+            <div class="submit-button">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="location.href='/display-data'">Display Data</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <h3>Copyright &copy; 2023 COMPUGEN</h3>
+        <!-- Add any additional footer content here

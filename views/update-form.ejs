@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Record</title>
+    
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #5c85d6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #4d74c2;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Update Record</h1>
+        <form action="/update/<%=record.id %>" method="post">
+            <!-- PRL ID -->
+            <div class="form-group">
+                <label for="prlId">PRL ID:</label>
+                <input type="text" id="prlId" name="prlId" value="<%= record.prlId %>" required>
+            </div>
+
+            <!-- UL ID -->
+            <div class="form-group">
+                <label for="ulId">UL ID:</label>
+                <input type="text" id="ulId" name="ulId" value="<%= record.ulId %>" required>
+            </div>
+
+            <!-- Shop Details -->
+            <div class="form-group">
+                <label for="shopDetails">Shop Details:</label>
+                <textarea id="shopDetails" name="shopDetails" rows="4" required><%= record.shopDetails %></textarea>
+            </div>
+
+            <!-- Company Breakdown -->
+            <div class="form-group">
+                <label for="companyBreakdown">Company Dealing with the Breakdown:</label>
+                <input type="text" id="companyBreakdown" name="companyBreakdown" value="<%= record.companyBreakdown %>" required>
+            </div>
+
+            <!-- Net Value Breakdown -->
+            <div class="form-group">
+                <label for="netValueBreakdown">Net Value of the Breakdown:</label>
+                <input type="text" id="netValueBreakdown" name="netValueBreakdown" value="<%= record.netValueBreakdown %>" required>
+            </div>
+
+            <!-- Breakdown Occurred -->
+            <div class="form-group">
+                <label for="breakdownOccurred">When Breakdown Occurred:</label>
+                <input type="date" id="breakdownOccurred" name="breakdownOccurred" value="<%= record.breakdownOccurred %>" required>
+            </div>
+
+            <!-- Stock Loss Received -->
+            <div class="form-group">
+                <label for="stockLossReceived">When Stock Loss Received:</label>
+                <input type="date" id="stockLossReceived" name="stockLossReceived" value="<%= record.stockLossReceived %>" required>
+            </div>
+
+            <!-- Credit Request Sent -->
+            <div class="form-group">
+                <label for="creditRequestSent">When Credit Request Sent:</label>
+                <input type="date" id="creditRequestSent" name="creditRequestSent" value="<%= record.creditRequestSent %>" required>
+            </div>
+
+            <!-- George Passed Credit -->
+            <div class="form-group">
+                <label for="georgePassedCredit">When George Passed the Credit:</label>
+                <input type="date" id="georgePassedCredit" name="georgePassedCredit" value="<%= record.georgePassedCredit %>" required>
+            </div>
+
+            <!-- Credit Received -->
+            <div class="form-group">
+                <label for="creditReceived">Credit Received Date:</label>
+                <input type="date" id="creditReceived" name="creditReceived" value="<%= record.creditReceived %>" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Update Record</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+ 
