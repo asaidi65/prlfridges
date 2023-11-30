@@ -5,19 +5,19 @@ const fs = require('fs');
 const path = require('path');
 const methodOverride = require('method-override');
 
-// Define the attachments directory
-const attachmentsDir = path.join(__dirname, 'attachments');
-if (!fs.existsSync(attachmentsDir)){
-    fs.mkdirSync(attachmentsDir, { recursive: true });
-}
-
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Define the attachments directory and create it if it doesn't exist
+const attachmentsDir = path.join(__dirname, 'attachments');
+if (!fs.existsSync(attachmentsDir)) {
+    fs.mkdirSync(attachmentsDir, { recursive: true });
+}
 
 // Set up multer for file uploading
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, attachmentsDir); // Use the attachmentsDir variable
+        cb(null, attachmentsDir);
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -26,21 +26,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Middleware setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'views')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ... rest of your code ...
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
 const dataFilePath = path.join(__dirname, 'data.json');
 
-// Function to read and write JSON file
+// Async functions to read and write JSON file
 async function readJSONFile(filePath) {
     const fileData = await fs.promises.readFile(filePath, 'utf8');
     return JSON.parse(fileData);
@@ -74,7 +69,6 @@ app.post('/submit-form', upload.fields([
         breakdownReport: req.files['breakdownReport'] ? req.files['breakdownReport'][0].path : '',
         creditRequestDocument: req.files['creditRequestDocument'] ? req.files['creditRequestDocument'][0].path : '',
         creditReceivedAttachments: req.files['creditReceivedAttachments'] ? req.files['creditReceivedAttachments'][0].path : '',
-        
     };
 
     try {
@@ -97,6 +91,8 @@ app.post('/submit-form', upload.fields([
         res.status(500).send('Error processing form');
     }
 });
+
+// Route for updating a record
 app.get('/update/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10); // Ensure the ID is correctly parsed as an integer
 
@@ -112,74 +108,4 @@ app.get('/update/:id', async (req, res) => {
         }
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('Server error');
-    }
-});
-
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-// Route for displaying data
-
-// Route for deleting a record
-app.delete('/delete/:id', async (req, res) => {
-    const idToDelete = parseInt(req.params.id, 10);
-    try {
-        let data = await readJSONFile(dataFilePath);
-        data = data.filter(record => record.id !== idToDelete);
-        await writeJSONFile(dataFilePath, data);
-        res.json({ success: true });
-    } catch (error) {
-        console.error('Error deleting record:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-// GET route to display the update form
- 
-app.get('/display-data', async (req, res) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = 10; 
-    const skip = (page - 1) * limit;
-     
-    try {
-        const data = await readJSONFile(dataFilePath);
-        const totalItems = data.length;
-        const totalPages = Math.ceil(totalItems / limit);
-        const paginatedData = data.slice(skip, skip + limit);
-
-        res.render('display-data', { 
-            records: paginatedData,
-            currentPage: page,
-            totalPages: totalPages
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Error fetching data');
-    }
-});
-
-// POST route to process the update
-app.post('/update/:id', upload.none(), async (req, res) => {
-    const idToUpdate = parseInt(req.params.id, 10);
-    try {
-        let data = await readJSONFile(dataFilePath);
-        const index = data.findIndex(record => record.id === idToUpdate);
-        if (index !== -1) {
-            data[index] = { ...data[index], ...req.body };
-            await writeJSONFile(dataFilePath, data);
-            res.redirect('/display-data');
-        } else {
-            res.status(404).send('Record not found');
-        }
-    } catch (error) {
-        console.error('Error updating record:', error);
-        res.status(500).send('Error updating data');
-    }
-}); // Add this closing bracket
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+        res.status(500).send
