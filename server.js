@@ -80,6 +80,27 @@ app.post('/submit-form', upload.fields([
         res.status(500).send('Error processing form');
     }
 });
+// GET route to display data
+app.get('/display-data', async (req, res) => {
+    try {
+        const data = await readJSONFile(dataFilePath);
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10; 
+        const skip = (page - 1) * limit;
+        const totalItems = data.length;
+        const totalPages = Math.ceil(totalItems / limit);
+        const paginatedData = data.slice(skip, skip + limit);
+
+        res.render('display-data', { 
+            records: paginatedData,
+            currentPage: page,
+            totalPages: totalPages // Ensure this is correctly calculated
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Error fetching data');
+    }
+});
 
 // GET route to display data
 app.get('/display-data', async (req, res) => {
@@ -142,26 +163,7 @@ app.delete('/delete/:id', async (req, res) => {
     }
 });
 // GET route to display data
-app.get('/display-data', async (req, res) => {
-    try {
-        const data = await readJSONFile(dataFilePath);
-        const page = parseInt(req.query.page) || 1;
-        const limit = 10; 
-        const skip = (page - 1) * limit;
-        const totalItems = data.length;
-        const totalPages = Math.ceil(totalItems / limit);
-        const paginatedData = data.slice(skip, skip + limit);
 
-        res.render('display-data', { 
-            records: paginatedData,
-            currentPage: page,
-            totalPages: totalPages
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(500).send('Error fetching data');
-    }
-});
 
 // Home route
 app.get('/', (req, res) => {
