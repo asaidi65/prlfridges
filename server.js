@@ -2,13 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
+const methodOverride = require('method-override');
+
+// Define the attachments directory
+const attachmentsDir = path.join(__dirname, 'attachments');
 if (!fs.existsSync(attachmentsDir)){
     fs.mkdirSync(attachmentsDir, { recursive: true });
 }
-
-const path = require('path');
-const methodOverride = require('method-override');
-const attachmentsDir = path.join(__dirname, 'attachments');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 // Set up multer for file uploading
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'attachments/'); // Change this destination to 'attachments/'
+        cb(null, attachmentsDir); // Use the attachmentsDir variable
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -30,6 +31,12 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'views')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// ... rest of your code ...
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 const dataFilePath = path.join(__dirname, 'data.json');
 
