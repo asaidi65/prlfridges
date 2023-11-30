@@ -4,6 +4,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const methodOverride = require('method-override');
+const attachmentsDir = path.join(__dirname, 'attachments');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
